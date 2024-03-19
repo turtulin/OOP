@@ -4,7 +4,6 @@ import java.util.Random;
 
 // Quale versione di gradle usa?
 // gradle init --use-defaults --type java-application
-// Aggiungere git
 // Provare a stampare matrice
 public class Main {
     public static void main(String[] args) {
