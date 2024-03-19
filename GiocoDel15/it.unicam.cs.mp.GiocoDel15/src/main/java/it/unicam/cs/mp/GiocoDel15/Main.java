@@ -11,8 +11,26 @@ public class Main {
         int[][] cells = new int[size][size];
         Position freeCell = new Position(size - 1, size -1, size);
         PuzzleBoard game = new PuzzleBoard(size, cells, freeCell);
-        Random random = new Random();
-        game.shuffle(random, 15);
+        game.initializeBoard();
+        //Random random = new Random();
+        //game.shuffle(random, 15);
+        printPuzzleBoard(game);
+        game.move(SlidingDirection.DOWN);
+        printPuzzleBoard(game);
+        game.move(SlidingDirection.UP);
+        printPuzzleBoard(game);
+        game.move(SlidingDirection.LEFT);
+        printPuzzleBoard(game);
+        game.move(SlidingDirection.RIGHT);
+        printPuzzleBoard(game);
+    }
 
+    public static void printPuzzleBoard(PuzzleBoard game) {
+        for (int i = 0; i < game.getSize(); i++) {
+            for (int j = 0; j < game.getSize(); j++) {
+                System.out.print(game.getCells()[i][j] + " ");
+            }
+            System.out.println();
+        }
     }
 }

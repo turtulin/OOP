@@ -1,5 +1,6 @@
 package it.unicam.cs.mp.GiocoDel15;
 
+import javax.management.remote.JMXConnectionNotification;
 import java.util.Random;
 
 public class PuzzleBoard {
@@ -16,20 +17,18 @@ public class PuzzleBoard {
     private int numberOfCorrectCells = 15;
 
     public boolean isSolved() {
-        return (this.numberOfCorrectCells==15);
+        return (this.numberOfCorrectCells == 15);
     }
 
     public void initializeBoard() {
         int value = 1;
-        for (int row = 0; row < size; row++) {
-            for (int column = 0; column < size; column++) {
-                if (value < size * size) {
-                    cells[row][column] = value++;
-                } else {
-                    cells[row][column] = 0;
-                }
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                cells[i][j] = value;
+                value++;
             }
         }
+        cells[size - 1][size - 1] = 0;
     }
 
     public void shuffle(Random random, int movements) {
@@ -54,17 +53,25 @@ public class PuzzleBoard {
         int value = getValueAt(movingCell);
         if (movingCell.isCorrect(value)) numberOfCorrectCells--;
         if (freeCell.isCorrect(value)) numberOfCorrectCells++;
-        set(freeCell, getValueAt(movingCell));
+        set(freeCell, movingCell);
         freeCell = movingCell;
         return true;
     }
 
-    private void set(Position pos, int value) {
-        cells[pos.getRow()][pos.getColumn()] = value;
+    private void set(Position pos, Position movingCell) {
+        cells[pos.getRow()][pos.getColumn()] = getValueAt(movingCell);
+        cells[movingCell.getRow()][movingCell.getColumn()] = 0;
     }
 
-    //What's the difference between this method and get (at line 38)
-    private int getValueAt(Position pos) {
+    public int getValueAt(Position pos) {
         return cells[pos.getRow()][pos.getColumn()];
+    }
+
+    public int[][] getCells() {
+        return cells;
+    }
+
+    public int getSize() {
+        return size;
     }
 }
