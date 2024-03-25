@@ -11,4 +11,6 @@ plugins {
 }
 
 rootProject.name = 'it.unicam.cs.mpmgc.gameof15'
-include('app', 'list', 'utilities')
+include('api', 'app')
+include 'api'
+
